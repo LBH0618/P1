@@ -160,3 +160,4 @@ if __name__ == '__main__':
     # Pagerank
     # print_top_key(nx_q2_result, 10)
     print_top_key(q2_result, 10)
+
