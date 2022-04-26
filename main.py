@@ -4,7 +4,7 @@
 # s4633687
 # 2022/04/06
 from collections import deque
-
+from heapq import nlargest
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot
@@ -114,12 +114,16 @@ def pagerank_centrality_calculation(graph, alpha, beta):
             return normalized_graph
 
 
-def print_top_10(graph):
-    graph_list = []
-    for (node, value) in graph.items():
-        graph_list.append((node, value))
-    graph_list.sort(key=lambda x: x[1], reverse=True)
-    print({k: v for (k, v) in graph_list[0:10]})
+def print_top_key(graph, num):
+    """ Print top 10 keys for the dictionary by the sorting the value of key
+    :param graph: networks
+    :param num: number of keys wants to print
+    """
+    dummy_graph = graph
+    top_10 = nlargest(num, dummy_graph, key=dummy_graph.get)
+    for node in top_10:
+        print(node, end=" ")
+    print()
 
 
 if __name__ == '__main__':
@@ -150,8 +154,8 @@ if __name__ == '__main__':
     # Result Stream Out #
     print(facebook_graph)
     # Betweenness
-    # print(print_top_10(nx_q1_result))
-    # print(print_top_10(q1_result))
+    # print(print_top_key(nx_q1_result))
+    # print(print_top_key(q1_result))
     # Pagerank
-    print_top_10(nx_q2_result)
-    print_top_10(q2_result)
+    print_top_key(nx_q2_result, 10)
+    print_top_key(q2_result, 10)
